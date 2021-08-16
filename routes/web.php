@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('pastes');
 });
 
 Route::get('/dashboard', function () {
@@ -22,5 +22,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('pastes', \App\Http\Controllers\PasteController::class)->middleware(['auth']);
+/*
+Route::get('/my-pastes', function () {
+    return view('pastes.index');
+});*/
 
 require __DIR__.'/auth.php';
