@@ -1,4 +1,4 @@
-<h1>index paste</h1>
+<h1>Index paste</h1>
 
 @foreach($pastes as $paste)
 
