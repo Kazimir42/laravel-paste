@@ -17,6 +17,8 @@ class CreatePastesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->longText('content');
+
+            $table->foreignId('user_id')->constrained();
         });
     }
 
