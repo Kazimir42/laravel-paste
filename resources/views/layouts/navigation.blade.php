@@ -5,18 +5,18 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('pastes.index') }}">
+                    <a href="{{ route('pastes.newPaste') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('pastes.index')" :active="request()->routeIs('dashboard')">
-                        {{ __('Pastes') }}
+                    <x-nav-link :href="route('pastes.newPaste')" :active="request()->routeIs('pastes.newPaste')">
+                        {{ __('New Pastes') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('pastes.create')" :active="request()->routeIs('dashboard')">
-                        {{ __('Creation') }}
+                    <x-nav-link :href="route('pastes.myPastes')" :active="request()->routeIs('pastes.myPastes')">
+                        {{ __('My Pastes') }}
                     </x-nav-link>
                 </div>
             </div>

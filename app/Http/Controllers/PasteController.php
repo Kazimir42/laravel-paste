@@ -34,13 +34,13 @@ class PasteController extends Controller
         ]);
         $paste->save();
 
-        return redirect(route('pastes.index'));
+        return redirect(route('pastes.myPastes'));
     }
 
     public function destroy(Paste $paste)
     {
         $paste->delete();
-        return redirect(route('pastes.index'));
+        return redirect(route('pastes.myPastes'));
     }
 
     public function show(Paste $paste)
@@ -67,7 +67,7 @@ class PasteController extends Controller
             ]
         );
 
-        return redirect(route('pastes.index'));
+        return redirect(route('pastes.myPastes'));
     }
 
 }
