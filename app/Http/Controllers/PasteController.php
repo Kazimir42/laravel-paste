@@ -28,6 +28,10 @@ class PasteController extends Controller
     {
         $user = Auth::user();
 
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+
         $paste = Paste::create([
             'content' => $request->input('content'),
             'user_id' => $user->id
