@@ -26,19 +26,25 @@ class PasteController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
+        $paste = Paste::create([
+            'content' => $request->input('content'),
+            'user_id' => $user->id
+        ]);
+        $paste->save();
 
         return redirect(route('pastes.index'));
     }
 
     public function destroy(Paste $paste)
     {
-
+        $paste->delete();
         return redirect(route('pastes.index'));
     }
 
     public function show(Paste $paste)
     {
-
         return view('pastes.show', [
             'paste' => $paste
         ]);
@@ -54,6 +60,12 @@ class PasteController extends Controller
 
     public function update(Paste $paste, Request $request)
     {
+
+        //$data = $request->input('content');
+        $paste->update([
+            'content' => $request->input('content')
+            ]
+        );
 
         return redirect(route('pastes.index'));
     }

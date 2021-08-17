@@ -11,6 +11,7 @@ class Paste extends Model
 
     protected $fillable = [
         'content',
+        'user_id'
     ];
 
     public function user()
