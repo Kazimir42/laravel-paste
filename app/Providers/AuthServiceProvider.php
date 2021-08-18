@@ -25,6 +25,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('edit-paste', function ($user, $paste) {
+            return $user->id == $paste->user_id;
+        });
+
+        Gate::define('delete-paste', function ($user, $paste) {
+            return $user->id == $paste->user_id;
+        });
+
+        Gate::define('view-paste', function ($user, $paste) {
+            return $user->id == $paste->user_id;
+        });
     }
 }

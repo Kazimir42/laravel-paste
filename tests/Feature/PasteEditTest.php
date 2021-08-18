@@ -25,9 +25,82 @@ class PasteEditTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/paste/999/edit');
+        $response = $this->actingAs($user)->get('/pastes/999/edit');
 
         $response->assertNotFound();
+    }
+
+    public function testCannotUpdateNotExistingPaste()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->put('/pastes/999', [
+            'content' => $this->faker->text,
+        ]);
+        $response->assertNotFound();
+    }
+
+    public function testCannotUpdateWithoutBody()
+    {
+        $user = User::factory()->create();
+
+        $paste = Paste::factory()->for($user)->create();
+        $this->assertDatabaseCount('pastes', 1);
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste));
+        $response->assertSessionHasErrors();
+    }
+
+    public function testCannotUpdateWithEmptyContent()
+    {
+        $user = User::factory()->create();
+
+        $paste = Paste::factory()->for($user)->create();
+        $this->assertDatabaseCount('pastes', 1);
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'content' => '',
+        ]);
+        $response->assertSessionHasErrors('content');
+    }
+
+    public function testCanUpdateUserExistingPaste()
+    {
+        $user = User::factory()->create();
+
+        /** @var Paste $paste */
+        $paste = Paste::factory()->for($user)->create();
+
+        $this->assertDatabaseCount('pastes', 1);
+
+        $newContent = $this->faker->text;
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'content' => $newContent,
+        ]);
+
+        $response->assertRedirect(route('pastes.index'));
+
+        $paste = $paste->refresh();
+        $this->assertEquals($newContent, $paste->content);
+    }
+
+    public function testCannotUpdateExistingPasteOfOtherUser()
+    {
+        $other_user = User::factory()->create();
+        $user = User::factory()->create();
+
+        /** @var Paste $paste */
+        $paste = Paste::factory()->for($other_user)->create();
+        $this->assertDatabaseCount('pastes', 1);
+
+        $newContent = $this->faker->text;
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'content' => $newContent,
+        ]);
+
+        $response->assertForbidden();
     }
 
 }

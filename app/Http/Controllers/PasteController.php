@@ -43,12 +43,17 @@ class PasteController extends Controller
 
     public function destroy(Paste $paste)
     {
+        $this->authorize('delete-paste', $paste);
+
         $paste->delete();
         return redirect(route('pastes.index'));
     }
 
     public function show(Paste $paste)
     {
+        $this->authorize('view-paste', $paste);
+
+
         return view('pastes.show', [
             'paste' => $paste
         ]);
@@ -56,6 +61,7 @@ class PasteController extends Controller
 
     public function edit(Paste $paste)
     {
+        $this->authorize('edit-paste', $paste);
 
         return view('pastes.edit', [
             'paste' => $paste
@@ -64,8 +70,12 @@ class PasteController extends Controller
 
     public function update(Paste $paste, Request $request)
     {
+        $this->authorize('edit-paste', $paste);
 
-        //$data = $request->input('content');
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+
         $paste->update([
             'content' => $request->input('content')
             ]
