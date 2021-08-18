@@ -6,11 +6,11 @@
     </x-slot>
 
     <div class="py-12">
+        @foreach($pastes ?? '' as $paste)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @foreach($pastes ?? '' as $paste)
                 <a href="{{ route('pastes.show', $paste) }}">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
-                        <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-3">
+                        <div class="p-6 border-b border-gray-200">
                             {{$paste->id}}
                             <p>{{ $paste->content }}</p>
 
@@ -31,8 +31,8 @@
                         </div>
                     </div>
                 </a>
-            @endforeach
         </div>
+        @endforeach
     </div>
 </x-app-layout>
 
