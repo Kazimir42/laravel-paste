@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-300 leading-tight ">
             My Pastes
         </h2>
     </x-slot>
 
     <div class="py-12">
         @foreach($pastes ?? '' as $paste)
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 dark:bg-second">
                 <a href="{{ route('pastes.show', $paste) }}">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-3">
                         <div class="p-6 border-b border-gray-200">

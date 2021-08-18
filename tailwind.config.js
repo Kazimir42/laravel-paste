@@ -8,6 +8,10 @@ module.exports = {
     ],
 
     theme: {
+        backgroundColor: {
+            'base' : '#2b2b2b',
+            'second': '#252525'
+        },
         extend: {
             screens: {
                 light: { raw: "(prefers-color-scheme: light)" },
