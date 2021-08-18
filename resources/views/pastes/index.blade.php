@@ -11,6 +11,8 @@
 
                 <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                     <div class="p-6">
+                            {{ $paste->title }}
+
                         <textarea readonly rows="5" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text">{{ $paste->content }}</textarea>
 
                         <a href="{{ route('pastes.show', $paste) }}">

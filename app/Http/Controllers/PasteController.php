@@ -32,7 +32,13 @@ class PasteController extends Controller
             'content' => 'required',
         ]);
 
+        $title = $request->input('title');
+        if (!$title){
+            $title = "No title";
+        }
+
         $paste = Paste::create([
+            'title' => $title,
             'content' => $request->input('content'),
             'user_id' => $user->id
         ]);

@@ -10,6 +10,7 @@ class Paste extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'content',
         'user_id'
     ];
