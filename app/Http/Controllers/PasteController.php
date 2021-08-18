@@ -82,12 +82,18 @@ class PasteController extends Controller
             'content' => 'required',
         ]);
 
+        $title = $request->input('title');
+        if (!$title){
+            $title = "No title";
+        }
+
         $paste->update([
+            'title' => $title,
             'content' => $request->input('content')
             ]
         );
 
-        return redirect(route('pastes.index'));
+        return redirect(route('pastes.show', $paste));
     }
 
 }

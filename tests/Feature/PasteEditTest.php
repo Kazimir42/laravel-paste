@@ -50,6 +50,19 @@ class PasteEditTest extends TestCase
         $response = $this->actingAs($user)->put(route('pastes.update', $paste));
         $response->assertSessionHasErrors();
     }
+    public function testCanUpdateWithEmptyTitle()
+    {
+        $user = User::factory()->create();
+
+        $paste = Paste::factory()->for($user)->create();
+        $this->assertDatabaseCount('pastes', 1);
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'title' => '',
+            'content' => $this->faker->text,
+        ]);
+        $response->assertRedirect(route('pastes.show', $paste));
+    }
 
     public function testCannotUpdateWithEmptyContent()
     {
@@ -59,7 +72,8 @@ class PasteEditTest extends TestCase
         $this->assertDatabaseCount('pastes', 1);
 
         $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
-            'content' => '',
+            'title' => $this->faker->title,
+            'content' => ''
         ]);
         $response->assertSessionHasErrors('content');
     }
@@ -73,13 +87,15 @@ class PasteEditTest extends TestCase
 
         $this->assertDatabaseCount('pastes', 1);
 
+        $newTitle = $this->faker->title;
         $newContent = $this->faker->text;
 
         $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'title' => $newTitle,
             'content' => $newContent,
         ]);
 
-        $response->assertRedirect(route('pastes.index'));
+        $response->assertRedirect(route('pastes.show', $paste));
 
         $paste = $paste->refresh();
         $this->assertEquals($newContent, $paste->content);
@@ -94,9 +110,11 @@ class PasteEditTest extends TestCase
         $paste = Paste::factory()->for($other_user)->create();
         $this->assertDatabaseCount('pastes', 1);
 
+        $newTitle = $this->faker->title;
         $newContent = $this->faker->text;
 
         $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+            'title' => $newTitle,
             'content' => $newContent,
         ]);
 

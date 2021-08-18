@@ -45,6 +45,17 @@ class PasteCreateTest extends TestCase
         $response->assertSessionHasErrors('content');
     }
 
+    public function testCanCreateWithEmptyTitle()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('pastes.store'), [
+            'title' => '',
+            'content' => $this->faker->text
+        ]);
+        $response->assertRedirect(route('pastes.index'));
+    }
+
     public function testCanCreate()
     {
         $user = User::factory()->create();

@@ -12,9 +12,16 @@
                     <form method="post" action="{{ route('pastes.update', $paste) }}">
                         @csrf
                         @method('PUT')
+                        <input class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" type="text" placeholder="Title" value="{{$paste->title}}">
                         <textarea rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text">{{ $paste->content }}</textarea>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Edit">Edit</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Edit">Save</button>
+                        <a href="{{ route('pastes.index') }}">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Cancel
+                            </button>
+                        </a>
                     </form>
+
                 </div>
             </div>
         </div>
