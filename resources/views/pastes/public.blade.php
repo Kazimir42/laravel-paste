@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-300 leading-tight ">
-            My Pastes
+            Public Pastes
         </h2>
     </x-slot>
 
@@ -20,11 +20,7 @@
                 <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                     <div class="p-6">
                         <h3 class="font-semibold text-xl text-gray-300 leading-tight ">{{ $paste->title }}</h3>
-                        @if($paste->public == 0)
-                            PRIVATE
-                        @else
-                            PUBLIC
-                        @endif
+                        Owner : {{$paste->user->name}}
 
                         <textarea readonly rows="5"
                                   class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline"

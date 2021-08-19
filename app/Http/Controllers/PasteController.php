@@ -12,9 +12,25 @@ class PasteController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $pastes = $user->pastes;
+
+        if ($user) {
+            $pastes = $user->pastes;
+        } else {
+            return redirect(route('pastes.public'));
+        }
+
 
         return view('pastes.index', [
+            'pastes' => $pastes,
+        ]);
+    }
+
+    public function public()
+    {
+        $pastes = Paste::all()->where('public', true);
+
+
+        return view('pastes.public', [
             'pastes' => $pastes,
         ]);
     }
@@ -27,24 +43,39 @@ class PasteController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $guest = User::where('name', 'Guest')->first();
+
 
         $this->validate($request, [
             'content' => 'required',
+            'public' => 'required',
         ]);
 
         $title = $request->input('title');
-        if (!$title){
+        if (!$title) {
             $title = "No title";
         }
 
-        $paste = Paste::create([
-            'title' => $title,
-            'content' => $request->input('content'),
-            'user_id' => $user->id
-        ]);
-        $paste->save();
+        if ($user) {
+            $paste = Paste::create([
+                'title' => $title,
+                'content' => $request->input('content'),
+                'public' => $request->input('public'),
+                'user_id' => $user->id
+            ]);
+            $paste->save();
+        } else {
+            $paste = Paste::create([
+                'title' => $title,
+                'content' => $request->input('content'),
+                'public' => $request->input('public'),
+                'user_id' => $guest->id
+            ]);
+            $paste->save();
+        }
 
-        return redirect(route('pastes.index'));
+
+        return redirect(route('pastes.show', $paste));
     }
 
     public function destroy(Paste $paste)
@@ -57,6 +88,7 @@ class PasteController extends Controller
 
     public function show(Paste $paste)
     {
+
         $this->authorize('view-paste', $paste);
 
 
@@ -83,13 +115,13 @@ class PasteController extends Controller
         ]);
 
         $title = $request->input('title');
-        if (!$title){
+        if (!$title) {
             $title = "No title";
         }
 
         $paste->update([
-            'title' => $title,
-            'content' => $request->input('content')
+                'title' => $title,
+                'content' => $request->input('content')
             ]
         );
 

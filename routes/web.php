@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PasteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('pastes');
-});
+})->middleware(['auth']);
+
+Route::get('/pastes/public', [PasteController::class, 'public'])->name('pastes.public');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('pastes', \App\Http\Controllers\PasteController::class)->middleware(['auth']);
+Route::resource('pastes', \App\Http\Controllers\PasteController::class);
+
 
 require __DIR__.'/auth.php';
