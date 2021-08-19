@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use function Symfony\Component\Translation\t;
@@ -34,9 +35,18 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $paste->user_id;
         });
 
-        Gate::define('view-paste', function ($user, $paste) {
 
-            return true;
+        Gate::define('view-paste', function (?User $user, $paste) {
+
+            if ($paste->public == 1) {
+                return true;
+            } else {
+                if ($user != null && $user->id == $paste->user_id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
         });
     }
