@@ -12,7 +12,7 @@ class Paste extends Model
     protected $fillable = [
         'title',
         'content',
-        'public',
+        'status',
         'user_id'
     ];
 

@@ -16,7 +16,9 @@ class CreatePastesTable extends Migration
         Schema::create('pastes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title');
             $table->longText('content');
+            $table->enum('status', ['public', 'private', 'not_listed']);
 
             $table->foreignId('user_id')->constrained();
         });

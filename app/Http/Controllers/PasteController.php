@@ -27,7 +27,7 @@ class PasteController extends Controller
 
     public function public()
     {
-        $pastes = Paste::all()->where('public', true);
+        $pastes = Paste::all()->where('status', 'public')->sortDesc();
 
 
         return view('pastes.public', [
@@ -48,7 +48,7 @@ class PasteController extends Controller
 
         $this->validate($request, [
             'content' => 'required',
-            'public' => 'required',
+            'status' => 'required',
         ]);
 
         $title = $request->input('title');
@@ -60,7 +60,7 @@ class PasteController extends Controller
             $paste = Paste::create([
                 'title' => $title,
                 'content' => $request->input('content'),
-                'public' => $request->input('public'),
+                'status' => $request->input('status'),
                 'user_id' => $user->id
             ]);
             $paste->save();
@@ -68,7 +68,7 @@ class PasteController extends Controller
             $paste = Paste::create([
                 'title' => $title,
                 'content' => $request->input('content'),
-                'public' => $request->input('public'),
+                'status' => $request->input('status'),
                 'user_id' => $guest->id
             ]);
             $paste->save();
@@ -121,7 +121,8 @@ class PasteController extends Controller
 
         $paste->update([
                 'title' => $title,
-                'content' => $request->input('content')
+                'content' => $request->input('content'),
+                'status' => $request->input('status')
             ]
         );
 
