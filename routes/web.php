@@ -33,9 +33,6 @@ Route::put('/pastes/{not_listed_id}', [PasteController::class, 'update'])->name(
 
 Route::delete('/pastes/{not_listed_id}', [PasteController::class, 'destroy'])->name('pastes.destroy');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 //Route::resource('pastes', \App\Http\Controllers\PasteController::class);
 
