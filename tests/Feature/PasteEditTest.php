@@ -50,6 +50,7 @@ class PasteEditTest extends TestCase
         $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id));
         $response->assertSessionHasErrors();
     }
+
     public function testCanUpdateWithEmptyTitle()
     {
         $user = User::factory()->create();
