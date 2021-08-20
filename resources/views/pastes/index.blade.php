@@ -32,18 +32,18 @@
                                   class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                                   name="content" id="content" type="text">{{ $paste->content }}</textarea>
 
-                        <a href="{{ route('pastes.show', $paste) }}">
+                        <a href="{{ route('pastes.show', $paste->not_listed_id) }}">
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Show
                             </button>
                         </a>
-                        <a href="{{ route('pastes.edit', $paste) }}">
+                        <a href="{{ route('pastes.edit', $paste->not_listed_id) }}">
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
                         </a>
                         <form id="del_task_{{ $paste->id }}" method="post"
-                              action="{{ route('pastes.destroy', $paste) }}" style="display: inline-block">
+                              action="{{ route('pastes.destroy', $paste->not_listed_id) }}" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"

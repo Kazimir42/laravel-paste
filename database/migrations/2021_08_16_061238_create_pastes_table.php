@@ -19,6 +19,7 @@ class CreatePastesTable extends Migration
             $table->string('title');
             $table->longText('content');
             $table->enum('status', ['public', 'private', 'not_listed']);
+            $table->string('not_listed_id');
 
             $table->foreignId('user_id')->constrained();
         });

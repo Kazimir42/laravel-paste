@@ -35,10 +35,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $paste->user_id;
         });
 
-
         Gate::define('view-paste', function (?User $user, $paste) {
 
-            if ($paste->status == 'public') {
+            if ($paste->status == 'public' || $paste->status == 'not_listed') {
                 return true;
             } else {
                 if ($user != null && $user->id == $paste->user_id) {

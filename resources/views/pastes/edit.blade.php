@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                 <div class="p-6 bg-white">
-                    <form method="post" action="{{ route('pastes.update', $paste) }}">
+                    <form method="post" action="{{ route('pastes.update', $paste->not_listed_id) }}">
                         @csrf
                         @method('PUT')
                         <input class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" type="text" placeholder="Title" value="{{$paste->title}}">

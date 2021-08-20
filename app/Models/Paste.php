@@ -13,6 +13,7 @@ class Paste extends Model
         'title',
         'content',
         'status',
+        'not_listed_id',
         'user_id'
     ];
 

@@ -19,7 +19,6 @@ class PasteController extends Controller
             return redirect(route('pastes.public'));
         }
 
-
         return view('pastes.index', [
             'pastes' => $pastes,
         ]);
@@ -28,7 +27,6 @@ class PasteController extends Controller
     public function public()
     {
         $pastes = Paste::all()->where('status', 'public')->sortDesc();
-
 
         return view('pastes.public', [
             'pastes' => $pastes,
@@ -61,6 +59,7 @@ class PasteController extends Controller
                 'title' => $title,
                 'content' => $request->input('content'),
                 'status' => $request->input('status'),
+                'not_listed_id' => getRandomString(8),
                 'user_id' => $user->id
             ]);
             $paste->save();
@@ -69,25 +68,31 @@ class PasteController extends Controller
                 'title' => $title,
                 'content' => $request->input('content'),
                 'status' => $request->input('status'),
+                'not_listed_id' => getRandomString(8),
                 'user_id' => $guest->id
             ]);
             $paste->save();
         }
 
 
-        return redirect(route('pastes.show', $paste));
+        return redirect(route('pastes.show', $paste->not_listed_id));
     }
 
-    public function destroy(Paste $paste)
+    public function destroy($not_listed_id)
     {
+        $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+
+
         $this->authorize('delete-paste', $paste);
 
         $paste->delete();
         return redirect(route('pastes.index'));
     }
 
-    public function show(Paste $paste)
+    public function show($not_listed_id)
     {
+        $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+
 
         $this->authorize('view-paste', $paste);
 
@@ -97,8 +102,11 @@ class PasteController extends Controller
         ]);
     }
 
-    public function edit(Paste $paste)
+    public function edit($not_listed_id)
     {
+        $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+
+
         $this->authorize('edit-paste', $paste);
 
         return view('pastes.edit', [
@@ -106,8 +114,11 @@ class PasteController extends Controller
         ]);
     }
 
-    public function update(Paste $paste, Request $request)
+    public function update($not_listed_id, Request $request)
     {
+        $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+
+
         $this->authorize('edit-paste', $paste);
 
         $this->validate($request, [
@@ -126,7 +137,7 @@ class PasteController extends Controller
             ]
         );
 
-        return redirect(route('pastes.show', $paste));
+        return redirect(route('pastes.show', $paste->not_listed_id));
     }
 
 }
