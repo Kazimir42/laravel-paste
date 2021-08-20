@@ -17,15 +17,15 @@ class PasteDeleteTest extends TestCase
         $user = User::factory()->create();
         $paste = Paste::factory()->for($user)->create();
 
-        $response = $this->delete(route('pastes.destroy', $paste));
-        $response->assertRedirect(route('login'));
+        $response = $this->delete(route('pastes.destroy', $paste->not_listed_id));
+        $response->assertForbidden();
     }
 
     public function testCannotDeleteNotExistingPaste()
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete('/pastes/999');
+        $response = $this->actingAs($user)->delete('/pastes/ExAmPlEe');
         $response->assertNotFound();
     }
 
@@ -36,7 +36,7 @@ class PasteDeleteTest extends TestCase
 
         $this->assertDatabaseCount('pastes', 1);
 
-        $response = $this->actingAs($user)->delete(route('pastes.destroy', $paste));
+        $response = $this->actingAs($user)->delete(route('pastes.destroy', $paste->not_listed_id));
         $response->assertRedirect(route('pastes.index'));
 
         $this->assertDatabaseCount('pastes', 0);
@@ -49,7 +49,7 @@ class PasteDeleteTest extends TestCase
 
         $paste = Paste::factory()->for($user)->create();
 
-        $response = $this->actingAs($other_user)->delete(route('pastes.destroy', $paste));
+        $response = $this->actingAs($other_user)->delete(route('pastes.destroy', $paste->not_listed_id));
         $response->assertForbidden();
     }
 }

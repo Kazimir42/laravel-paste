@@ -12,17 +12,17 @@ class PasteListTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCannotListPastesIfNotLoggedIn()
+    public function testCannotListPastesInIndexIfNotLoggedIn()
     {
         $response = $this->get(route('pastes.index'));
-        $response->assertRedirect(route('login'));
+        $response->assertRedirect(route('pastes.public'));
     }
 
-    public function testCanListPastes()
+    public function testCanListUserPastes()
     {
         $user = User::factory()->create();
 
-        $pastes = Paste::factory()->for($user)->count(15)->create();
+        $pastes = Paste::factory()->for($user)->count(10)->create();
 
         $response = $this->actingAs($user)->get(route('pastes.index'));
         $response->assertSuccessful();
@@ -30,8 +30,14 @@ class PasteListTest extends TestCase
         /** @var Paste $paste */
         foreach ($pastes as $paste) {
             $response->assertSeeText($paste->title);
-            $response->assertSee(route('pastes.destroy', $paste));
+            $response->assertSee(route('pastes.destroy', $paste->not_listed_id));
         }
+    }
+    public function testCanListPublicPastes()
+    {
+        /**
+         * todo: this test
+         */
     }
 
     public function testCannotListOtherUserPastes()

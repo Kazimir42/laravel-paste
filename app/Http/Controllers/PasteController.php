@@ -38,7 +38,7 @@ class PasteController extends Controller
         return view('pastes.create');
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $user = Auth::user();
         $guest = User::where('name', 'Guest')->first();
@@ -81,7 +81,9 @@ class PasteController extends Controller
     public function destroy($not_listed_id)
     {
         $paste = Paste::where('not_listed_id', $not_listed_id)->first();
-
+        if(!$paste){
+            abort(404);
+        }
 
         $this->authorize('delete-paste', $paste);
 
@@ -93,6 +95,9 @@ class PasteController extends Controller
     {
         $paste = Paste::where('not_listed_id', $not_listed_id)->first();
 
+        if(!$paste){
+            abort(404);
+        }
 
         $this->authorize('view-paste', $paste);
 
@@ -105,6 +110,9 @@ class PasteController extends Controller
     public function edit($not_listed_id)
     {
         $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+        if(!$paste){
+            abort(404);
+        }
 
 
         $this->authorize('edit-paste', $paste);
@@ -117,12 +125,16 @@ class PasteController extends Controller
     public function update($not_listed_id, Request $request)
     {
         $paste = Paste::where('not_listed_id', $not_listed_id)->first();
+        if(!$paste){
+            abort(404);
+        }
 
 
         $this->authorize('edit-paste', $paste);
 
         $this->validate($request, [
             'content' => 'required',
+            'status' => 'required',
         ]);
 
         $title = $request->input('title');

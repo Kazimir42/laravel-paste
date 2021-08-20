@@ -23,7 +23,8 @@ class PasteFactory extends Factory
     {
         return [
             'title' => $this->faker->title,
-            'content' => $this->faker->text
+            'content' => $this->faker->text,
+            'not_listed_id' => getRandomString(8),
         ];
     }
 }

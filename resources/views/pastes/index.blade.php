@@ -42,7 +42,7 @@
                                 Edit
                             </button>
                         </a>
-                        <form id="del_task_{{ $paste->id }}" method="post"
+                        <form id="del_task_{{ $paste->not_listed_id }}" method="post"
                               action="{{ route('pastes.destroy', $paste->not_listed_id) }}" style="display: inline-block">
                             @csrf
                             @method('DELETE')

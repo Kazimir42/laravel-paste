@@ -17,15 +17,15 @@ class PasteEditTest extends TestCase
         $user = User::factory()->create();
         $paste = Paste::factory()->for($user)->create();
 
-        $response = $this->get(route('pastes.edit', $paste));
-        $response->assertRedirect(route('login'));
+        $response = $this->get(route('pastes.edit', $paste->not_listed_id));
+        $response->assertForbidden();
     }
 
     public function testCannotViewNotExistingPaste()
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/pastes/999/edit');
+        $response = $this->actingAs($user)->get('/pastes/ExAmPlEe/edit');
 
         $response->assertNotFound();
     }
@@ -34,7 +34,7 @@ class PasteEditTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->put('/pastes/999', [
+        $response = $this->actingAs($user)->put('/pastes/ExAmPlEe', [
             'content' => $this->faker->text,
         ]);
         $response->assertNotFound();
@@ -47,7 +47,7 @@ class PasteEditTest extends TestCase
         $paste = Paste::factory()->for($user)->create();
         $this->assertDatabaseCount('pastes', 1);
 
-        $response = $this->actingAs($user)->put(route('pastes.update', $paste));
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id));
         $response->assertSessionHasErrors();
     }
     public function testCanUpdateWithEmptyTitle()
@@ -57,11 +57,13 @@ class PasteEditTest extends TestCase
         $paste = Paste::factory()->for($user)->create();
         $this->assertDatabaseCount('pastes', 1);
 
-        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id), [
             'title' => '',
             'content' => $this->faker->text,
+            'status' => 'public'
+
         ]);
-        $response->assertRedirect(route('pastes.show', $paste));
+        $response->assertRedirect(route('pastes.show', $paste->not_listed_id));
     }
 
     public function testCannotUpdateWithEmptyContent()
@@ -71,11 +73,27 @@ class PasteEditTest extends TestCase
         $paste = Paste::factory()->for($user)->create();
         $this->assertDatabaseCount('pastes', 1);
 
-        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id), [
             'title' => $this->faker->title,
-            'content' => ''
+            'content' => '',
+            'status' => 'public'
         ]);
         $response->assertSessionHasErrors('content');
+    }
+
+    public function testCannotUpdateWithEmptyStatus()
+    {
+        $user = User::factory()->create();
+
+        $paste = Paste::factory()->for($user)->create();
+        $this->assertDatabaseCount('pastes', 1);
+
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id), [
+            'title' => $this->faker->title,
+            'content' => $this->faker->text,
+            'status' => ''
+        ]);
+        $response->assertSessionHasErrors('status');
     }
 
     public function testCanUpdateUserExistingPaste()
@@ -89,13 +107,15 @@ class PasteEditTest extends TestCase
 
         $newTitle = $this->faker->title;
         $newContent = $this->faker->text;
+        $newStatus = 'private';
 
-        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id), [
             'title' => $newTitle,
             'content' => $newContent,
+            'status' => $newStatus,
         ]);
 
-        $response->assertRedirect(route('pastes.show', $paste));
+        $response->assertRedirect(route('pastes.show', $paste->not_listed_id));
 
         $paste = $paste->refresh();
         $this->assertEquals($newContent, $paste->content);
@@ -113,7 +133,7 @@ class PasteEditTest extends TestCase
         $newTitle = $this->faker->title;
         $newContent = $this->faker->text;
 
-        $response = $this->actingAs($user)->put(route('pastes.update', $paste), [
+        $response = $this->actingAs($user)->put(route('pastes.update', $paste->not_listed_id), [
             'title' => $newTitle,
             'content' => $newContent,
         ]);

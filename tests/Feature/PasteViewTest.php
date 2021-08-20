@@ -13,42 +13,78 @@ class PasteViewTest extends TestCase
     use RefreshDatabase;
 
 
-    public function testCannotViewPasteIfNotLoggedIn()
+    public function testCannotViewPrivatePasteOfOtherUser()
     {
         $user = User::factory()->create();
-        $paste = Paste::factory()->for($user)->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'private'
+        ]);
 
-        $response = $this->get(route('pastes.show', $paste));
-        $response->assertRedirect(route('login'));
+        $response = $this->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertForbidden();
+    }
+
+    public function testCanViewPublicPasteOfOtherUser()
+    {
+        $user = User::factory()->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'public'
+        ]);
+
+        $response = $this->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertSuccessful();
+    }
+
+    public function testCanViewNotListedPasteOfOtherUser()
+    {
+        $user = User::factory()->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'not_listed'
+        ]);
+
+        $response = $this->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertSuccessful();
+    }
+
+    public function testCanViewPrivatePasteOfCurrentUser()
+    {
+        $user = User::factory()->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'private'
+        ]);
+
+        $response = $this->actingAs($user)->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertSuccessful();
+    }
+
+    public function testCanViewPublicPasteOfCurrentUser()
+    {
+        $user = User::factory()->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'public'
+        ]);
+
+        $response = $this->actingAs($user)->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertSuccessful();
+    }
+
+    public function testCanViewNotListedPasteOfCurrentUser()
+    {
+        $user = User::factory()->create();
+        $paste = Paste::factory()->for($user)->create([
+            'status' => 'not_listed'
+        ]);
+
+        $response = $this->actingAs($user)->get(route('pastes.show', $paste->not_listed_id));
+        $response->assertSuccessful();
     }
 
     public function testCannotViewNotExistingPaste()
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/pastes/999');
+        $response = $this->actingAs($user)->get('/pastes/Example');
         $response->assertNotFound();
     }
 
-    public function testCanViewUserExistingPaste()
-    {
-        $user = User::factory()->create();
-
-        $paste = Paste::factory()->for($user)->create();
-        $this->assertDatabaseCount('pastes', 1);
-
-        $response = $this->actingAs($user)->get(route('pastes.show', $paste));
-        $response->assertSuccessful();
-    }
-    public function testCannotViewExistingPasteOfOtherUser()
-    {
-        $other_user = User::factory()->create();
-        $user = User::factory()->create();
-
-        $paste = Paste::factory()->for($other_user)->create();
-        $this->assertDatabaseCount('pastes', 1);
-
-        $response = $this->actingAs($user)->get(route('pastes.show', $paste));
-        $response->assertForbidden();
-    }
 }
