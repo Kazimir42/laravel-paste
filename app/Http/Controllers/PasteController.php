@@ -64,6 +64,9 @@ class PasteController extends Controller
             ]);
             $paste->save();
         } else {
+            if ($request->input('status') == 'private'){
+                abort('403');
+            }
             $paste = Paste::create([
                 'title' => $title,
                 'content' => $request->input('content'),

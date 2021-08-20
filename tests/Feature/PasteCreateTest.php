@@ -14,7 +14,8 @@ class PasteCreateTest extends TestCase
 
     public function testCanCreatePublicPasteIfNotLoggingIn()
     {
-        /*$guest = User::factory()->create([
+
+        $guest = User::factory()->create([
             'name' => 'Guest'
         ]);
 
@@ -22,59 +23,96 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'public'
         ]);
-        ;
-
-        $response->assertRedirect(route('pastes.show'));
-
-        $this->assertDatabaseCount('pastes', 1);*/
-
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 
-    public function testCanCreatePrivatePasteIfNotLoggingIn()
+    public function testCannotCreatePrivatePasteIfNotLoggingIn()
     {
+        $guest = User::factory()->create([
+            'name' => 'Guest'
+        ]);
+
+        $response = $this->post(route('pastes.store'), [
+            'content' => $this->faker->text,
+            'status' => 'private'
+        ]);
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+        $response->assertForbidden();
     }
 
     public function testCanCreateNotListedPasteIfNotLoggingIn()
     {
+        $guest = User::factory()->create([
+            'name' => 'Guest'
+        ]);
+
+        $response = $this->post(route('pastes.store'), [
+            'content' => $this->faker->text,
+            'status' => 'not_listed'
+        ]);
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 
     public function testCanCreatePublicPasteIfLoggingIn()
     {
-        /*$user = User::factory()->create();
-        $this->assertDatabaseCount('pastes', 0);
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('pastes.store'), [
-            'content' => $this->faker->text
+            'content' => $this->faker->text,
+            'status' => 'public'
         ]);
-        $response->assertRedirect(route('pastes.show'));
-
-        $this->assertDatabaseCount('pastes', 1);*/
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 
     public function testCanCreatePrivatePasteIfLoggingIn()
     {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('pastes.store'), [
+            'content' => $this->faker->text,
+            'status' => 'private'
+        ]);
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 
     public function testCanCreateNotListedPasteIfLoggingIn()
     {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('pastes.store'), [
+            'content' => $this->faker->text,
+            'status' => 'not_listed'
+        ]);
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 
     public function testCanViewCreatePage()
@@ -119,16 +157,19 @@ class PasteCreateTest extends TestCase
 
     public function testCanCreateWithEmptyTitle()
     {
-        /*$user = User::factory()->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('pastes.store'), [
             'title' => '',
             'content' => $this->faker->text,
             'status' => 'public'
         ]);
-        $response->assertRedirect(route('pastes.show'));*/
+
         /**
-         * todo: this
+         * @note don't know how to set parameters of new paste
          */
+        //$response->assertRedirect(route('pastes.show'));
+
+        $this->assertDatabaseCount('pastes', 1);
     }
 }
