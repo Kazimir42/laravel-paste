@@ -12,7 +12,7 @@
                     <form method="post" action="{{ route('pastes.store') }}">
                         @csrf
                         <input class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" type="text" placeholder="Title">
-                        <textarea rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text" placeholder="Content"></textarea>
+                        <textarea rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text" placeholder="Content"></textarea>
                         <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="status">
                             <option value="public">Public</option>
                             @auth()
