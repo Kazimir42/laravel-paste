@@ -17,8 +17,8 @@
                     @else
                         NOT LISTED
                     @endif
+                    | {{$paste->updated_at->format('d/m/y')}}
                     <textarea readonly rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text">{{ $paste->content }}</textarea>
-
                     @if(Auth()->user() && $paste->user_id == Auth()->user()->id)
                     <a href="{{ route('pastes.edit', $paste->not_listed_id) }}">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

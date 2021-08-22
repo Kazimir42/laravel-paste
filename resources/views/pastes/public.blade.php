@@ -20,7 +20,7 @@
                 <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                     <div class="p-6">
                         <h3 class="font-semibold text-xl text-gray-300 leading-tight ">{{ $paste->title }}</h3>
-                        Creator : {{$paste->user->name}}
+                        Creator : {{$paste->user->name}} | {{$paste->updated_at->format('d/m/y')}}
 
                         <textarea readonly rows="5"
                                   class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline"

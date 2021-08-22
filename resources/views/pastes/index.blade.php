@@ -27,6 +27,7 @@
                         @else
                             NOT LISTED
                         @endif
+                        | {{$paste->updated_at->format('d/m/y')}}
 
                         <textarea readonly rows="5"
                                   class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline"
