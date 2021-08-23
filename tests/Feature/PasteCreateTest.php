@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Paste;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,11 +24,8 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'public'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
 
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
@@ -42,10 +40,7 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'private'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
         $response->assertForbidden();
     }
 
@@ -59,10 +54,8 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'not_listed'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
@@ -75,10 +68,8 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'public'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
@@ -91,10 +82,8 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'private'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
@@ -107,10 +96,8 @@ class PasteCreateTest extends TestCase
             'content' => $this->faker->text,
             'status' => 'not_listed'
         ]);
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
@@ -165,10 +152,8 @@ class PasteCreateTest extends TestCase
             'status' => 'public'
         ]);
 
-        /**
-         * @note don't know how to set parameters of new paste
-         */
-        //$response->assertRedirect(route('pastes.show'));
+
+        $response->assertRedirect(route('pastes.show', Paste::all()->last()->not_listed_id));
 
         $this->assertDatabaseCount('pastes', 1);
     }
