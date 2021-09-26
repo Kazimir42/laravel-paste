@@ -13,8 +13,9 @@ class PasteController extends Controller
     {
         $user = Auth::user();
 
+
         if ($user) {
-            $pastes = $user->pastes;
+            $pastes = $user->pastes->sortDesc();
         } else {
             return redirect(route('pastes.public'));
         }
