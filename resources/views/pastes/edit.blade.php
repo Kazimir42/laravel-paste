@@ -19,12 +19,17 @@
                             <option {{$paste->status == "private" ? "selected":""}} value="private">Private</option>
                             <option {{$paste->status == "not_listed" ? "selected":""}} value="not_listed">Not listed</option>
                         </select>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Edit">Save</button>
-                        <a href="{{ route('pastes.index') }}">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Cancel
-                            </button>
-                        </a>
+                        <div class="flex flex-row items-baseline justify-between">
+                            <div>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Edit">Save</button>
+                                <a href="{{ route('pastes.index') }}">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Cancel
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="text-gray-300">markdown is activate</div>
+                        </div>
                     </form>
 
                 </div>

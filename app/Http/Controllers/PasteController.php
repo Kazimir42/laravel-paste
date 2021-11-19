@@ -96,6 +96,7 @@ class PasteController extends Controller
     {
         $paste = Paste::where('not_listed_id', $not_listed_id)->first();
 
+
         if(!$paste){
             abort(404);
         }

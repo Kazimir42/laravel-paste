@@ -20,7 +20,10 @@
                             @endauth
                             <option value="not_listed">Not listed</option>
                         </select>
-                        <button class="dark:bg-yellow-600 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Create">Create</button>
+                        <div class="flex flex-row items-baseline justify-between">
+                            <button class="dark:bg-yellow-600 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Create">Create</button>
+                            <div class="text-gray-300">markdown is activate</div>
+                        </div>
                     </form>
                 </div>
             </div>

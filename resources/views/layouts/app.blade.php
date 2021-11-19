@@ -28,9 +28,13 @@
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main style="min-height: 81vh">
                 {{ $slot }}
             </main>
+
+            <footer>
+                <p class="text-white text-center pb-2"><a href="https://remi-champlon.fr/" target="_blank" class="hover:underline"> © Rémi Champlon</a>, All Right reserved.</p>
+            </footer>
         </div>
     </body>
 </html>

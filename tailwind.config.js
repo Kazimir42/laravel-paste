@@ -8,9 +8,22 @@ module.exports = {
     ],
 
     theme: {
-        backgroundColor: {
+        textColor: theme => ({
+            ...theme('colors'),
+            'primary': '#d97705'
+        }),
+        borderColor: theme => ({
+            ...theme('colors'),
+            'primary': '#d97705',
             'base' : '#2b2b2b',
-            'second': '#252525'
+            'second': '#252525',
+            'quote': '#434447'
+        }),
+        backgroundColor: {
+            'primary': '#d97705',
+            'base' : '#2b2b2b',
+            'second': '#252525',
+            'quote': '#434447'
         },
         extend: {
             screens: {
