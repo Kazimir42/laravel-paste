@@ -13,22 +13,22 @@ button:hover{
 }
 @layer base {
     .markdown-zone h1 {
-        @apply text-6xl mt-5 mb-2.5;
-    }
-    .markdown-zone h2 {
         @apply text-5xl mt-5 mb-2.5;
     }
-    .markdown-zone h3 {
+    .markdown-zone h2 {
         @apply text-4xl mt-5 mb-2.5;
     }
-    .markdown-zone h4 {
-        @apply text-3xl mt-2.5 mb-2.5;
+    .markdown-zone h3 {
+        @apply text-3xl mt-5 mb-2.5;
     }
-    .markdown-zone h5 {
+    .markdown-zone h4 {
         @apply text-2xl mt-2.5 mb-2.5;
     }
-    .markdown-zone h6 {
+    .markdown-zone h5 {
         @apply text-xl mt-2.5 mb-2.5;
+    }
+    .markdown-zone h6 {
+        @apply text-lg mt-2.5 mb-2.5;
     }
     .markdown-zone ul {
         @apply list-disc pl-10;
