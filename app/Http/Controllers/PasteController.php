@@ -14,11 +14,8 @@ class PasteController extends Controller
         $user = Auth::user();
 
 
-        if ($user) {
-            $pastes = $user->pastes->sortDesc();
-        } else {
-            return redirect(route('pastes.public'));
-        }
+        $pastes = $user->pastes->sortByDesc('updated_at');
+
 
         return view('pastes.index', [
             'pastes' => $pastes,
@@ -27,7 +24,7 @@ class PasteController extends Controller
 
     public function public()
     {
-        $pastes = Paste::all()->where('status', 'public')->sortDesc();
+        $pastes = Paste::all()->where('status', 'public')->sortByDesc('updated_at');
 
         return view('pastes.public', [
             'pastes' => $pastes,

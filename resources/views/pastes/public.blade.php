@@ -19,7 +19,7 @@
             @foreach($pastes ?? '' as $paste)
                 <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                     <div class="p-6">
-                        <h3 class="font-semibold text-xl text-gray-300 leading-tight ">{{ $paste->title }}</h3>
+                        <h3 class="font-semibold text-xl leading-tight ">{{ $paste->title }}</h3>
                         Creator : {{$paste->user->name}} | {{$paste->updated_at->format('d/m/y')}}
 
                         <textarea readonly rows="5"
@@ -31,6 +31,21 @@
                                 Show
                             </button>
                         </a>
+                        @if(auth()->user() && $paste->user->id == auth()->user()->id)
+                        <a href="{{ route('pastes.edit', $paste->not_listed_id) }}">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Edit
+                            </button>
+                        </a>
+                        <form id="del_task_{{ $paste->not_listed_id }}" method="post"
+                              action="{{ route('pastes.destroy', $paste->not_listed_id) }}" style="display: inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                                    type="submit" value="Delete">Delete
+                            </button>
+                        </form>
+                        @endif
                     </div>
                 </div>
             @endforeach

@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('pastes');
+    return redirect('my-pastes');
 })->middleware(['auth']);
 
 Route::get('/pastes/create', [PasteController::class, 'create'])->name('pastes.create');
 Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
 
 
-Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
+Route::get('/my-pastes', [PasteController::class, 'index'])->middleware('auth')->name('pastes.index');
 Route::get('/pastes/public', [PasteController::class, 'public'])->name('pastes.public');
 
 Route::get('/pastes/{not_listed_id}', [PasteController::class, 'show'])->name('pastes.show');

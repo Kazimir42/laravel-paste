@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-second overflow-hidden shadow-sm sm:rounded-lg mb-3">
                 <div class="p-6 bg-white">
-                    <h3 class="font-semibold text-xl text-gray-300 leading-tight ">{{ $paste->title }}</h3>
+                    <h3 class="font-semibold text-xl leading-tight ">{{ $paste->title }}</h3>
                     @if($paste->status == "public")
                         PUBLIC
                     @elseif($paste->status == "private")
