@@ -54,7 +54,10 @@
                     </div>
                 </div>
             @endforeach
-
+            
+            <div class="mx-auto">
+                {!! $pastes->links() !!}
+            </div>
         </div>
     </div>
 </x-app-layout>
