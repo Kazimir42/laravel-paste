@@ -29,7 +29,7 @@
                         @endif
                     @if(Auth()->user() && $paste->user_id == Auth()->user()->id)
                     <a href="{{ route('pastes.edit', $paste->not_listed_id) }}">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200">
                             Edit
                         </button>
                     </a>
@@ -37,13 +37,13 @@
                           action="{{ route('pastes.destroy', $paste->not_listed_id) }}" style="display: inline-block">
                         @csrf
                         @method('DELETE')
-                        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                        <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200"
                                 type="submit" value="Delete">Delete
                         </button>
                     </form>
                     @endif
                     <a href="{{ route('pastes.index') }}">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200">
                             Back
                         </button>
                     </a>
