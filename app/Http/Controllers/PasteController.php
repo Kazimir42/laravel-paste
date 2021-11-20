@@ -45,6 +45,7 @@ class PasteController extends Controller
         $this->validate($request, [
             'content' => 'required',
             'status' => 'required',
+            'type' => 'required',
         ]);
 
         $title = $request->input('title');
@@ -57,6 +58,7 @@ class PasteController extends Controller
                 'title' => $title,
                 'content' => $request->input('content'),
                 'status' => $request->input('status'),
+                'type' => $request->input('type'),
                 'not_listed_id' => getRandomString(8),
                 'user_id' => $user->id
             ]);
@@ -69,6 +71,7 @@ class PasteController extends Controller
                 'title' => $title,
                 'content' => $request->input('content'),
                 'status' => $request->input('status'),
+                'type' => $request->input('type'),
                 'not_listed_id' => getRandomString(8),
                 'user_id' => $guest->id
             ]);
@@ -137,6 +140,7 @@ class PasteController extends Controller
         $this->validate($request, [
             'content' => 'required',
             'status' => 'required',
+            'type' => 'required',
         ]);
 
         $title = $request->input('title');
@@ -147,7 +151,9 @@ class PasteController extends Controller
         $paste->update([
                 'title' => $title,
                 'content' => $request->input('content'),
-                'status' => $request->input('status')
+                'status' => $request->input('status'),
+                'type' => $request->input('type'),
+
             ]
         );
 

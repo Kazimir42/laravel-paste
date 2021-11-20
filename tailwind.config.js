@@ -10,20 +10,25 @@ module.exports = {
     theme: {
         textColor: theme => ({
             ...theme('colors'),
-            'primary': '#d97705'
+            'primary': '#d97705',
+            'dark-primary': '#B45309'
         }),
         borderColor: theme => ({
             ...theme('colors'),
             'primary': '#d97705',
             'base' : '#2b2b2b',
             'second': '#252525',
-            'quote': '#434447'
+            'quote': '#434447',
+            'dark-primary': '#B45309'
+
         }),
         backgroundColor: {
             'primary': '#d97705',
             'base' : '#2b2b2b',
             'second': '#252525',
-            'quote': '#434447'
+            'quote': '#434447',
+            'dark-primary': '#B45309'
+
         },
         extend: {
             screens: {

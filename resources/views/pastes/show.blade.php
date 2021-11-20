@@ -18,9 +18,15 @@
                         NOT LISTED
                     @endif
                     | {{$paste->updated_at->format('d/m/y')}}
+                        @if($paste->type == 'raw')
+                            <div class="my-5 border-2 border-quote rounded-md px-2 py-2">
+                                {!! nl2br(e($paste->content)) !!}
+                            </div>
+                        @elseif($paste->type == 'markdown')
                         <div class="markdown-zone my-5 border-2 border-quote rounded-md px-2 py-2">
-                            {{ Illuminate\Mail\Markdown::parse($paste->content ) }}
+                            {{ Illuminate\Mail\Markdown::parse($paste->content) }}
                         </div>
+                        @endif
                     @if(Auth()->user() && $paste->user_id == Auth()->user()->id)
                     <a href="{{ route('pastes.edit', $paste->not_listed_id) }}">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

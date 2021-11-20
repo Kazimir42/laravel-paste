@@ -14,7 +14,8 @@ class Paste extends Model
         'content',
         'status',
         'not_listed_id',
-        'user_id'
+        'user_id',
+        'type'
     ];
 
     public function user()

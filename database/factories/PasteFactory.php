@@ -25,7 +25,8 @@ class PasteFactory extends Factory
             'title' => $this->faker->title,
             'content' => $this->faker->text,
             'not_listed_id' => getRandomString(8),
-            'status' => 'public'
+            'status' => 'public',
+            'type' => 'raw',
         ];
     }
 }

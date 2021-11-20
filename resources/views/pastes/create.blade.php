@@ -13,17 +13,23 @@
                         @csrf
                         <input class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" type="text" placeholder="Title">
                         <textarea rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text" placeholder="Content"></textarea>
-                        <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="status">
-                            <option value="public">Public</option>
-                            @auth()
-                            <option value="private">Private</option>
-                            @endauth
-                            <option value="not_listed">Not listed</option>
-                        </select>
-                        <div class="flex flex-row items-baseline justify-between">
-                            <button class="dark:bg-yellow-600 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Create">Create</button>
-                            <div class="text-gray-300">markdown is activate</div>
+
+                        <div class="flex flex-row gap-2">
+                            <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="status">
+                                <option value="public">Public</option>
+                                @auth()
+                                <option value="private">Private</option>
+                                @endauth
+                                <option value="not_listed">Not listed</option>
+                            </select>
+                            <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="type">
+                                <option value="raw">Raw text</option>
+                                <option value="markdown">Markdown</option>
+                            </select>
                         </div>
+
+                        <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200" type="submit" value="Create">Create</button>
+
                     </form>
                 </div>
             </div>

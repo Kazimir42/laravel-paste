@@ -14,21 +14,24 @@
                         @method('PUT')
                         <input class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" type="text" placeholder="Title" value="{{$paste->title}}">
                         <textarea rows="20" class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:shadow-outline" name="content" id="content" type="text">{{ $paste->content }}</textarea>
-                        <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="status">
-                            <option {{$paste->status == "public" ? "selected":""}} value="public">Public</option>
-                            <option {{$paste->status == "private" ? "selected":""}} value="private">Private</option>
-                            <option {{$paste->status == "not_listed" ? "selected":""}} value="not_listed">Not listed</option>
-                        </select>
-                        <div class="flex flex-row items-baseline justify-between">
-                            <div>
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Edit">Save</button>
-                                <a href="{{ route('pastes.index') }}">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Cancel
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="text-gray-300">markdown is activate</div>
+                        <div class="flex flex-row gap-2">
+                            <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="status">
+                                <option {{$paste->status == "public" ? "selected":""}} value="public">Public</option>
+                                <option {{$paste->status == "private" ? "selected":""}} value="private">Private</option>
+                                <option {{$paste->status == "not_listed" ? "selected":""}} value="not_listed">Not listed</option>
+                            </select>
+                            <select class="shadow appearance-none dark:bg-base border rounded w-full py-2 px-3 mb-2 leading-tight focus:outline-none focus:shadow-outline" name="type">
+                                <option {{$paste->type == "raw" ? "selected":""}} value="raw">Raw text</option>
+                                <option {{$paste->type == "markdown" ? "selected":""}} value="markdown">Markdown</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200" type="submit" value="Edit">Save</button>
+                            <a href="{{ route('pastes.index') }}">
+                                <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200">
+                                    Cancel
+                                </button>
+                            </a>
                         </div>
                     </form>
 
