@@ -24,7 +24,7 @@
                             </div>
                         @elseif($paste->type == 'markdown')
                         <div class="markdown-zone my-5 border-2 border-quote rounded-md px-2 py-2">
-                            {{ Illuminate\Mail\Markdown::parse($paste->content) }}
+                            {!! $paste->markdown() !!}
                         </div>
                         @endif
                     @if(Auth()->user() && $paste->user_id == Auth()->user()->id)
