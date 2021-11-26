@@ -17,7 +17,8 @@ class Paste extends Model
         'status',
         'not_listed_id',
         'user_id',
-        'type'
+        'type',
+        'password'
     ];
 
     public function user()

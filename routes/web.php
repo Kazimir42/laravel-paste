@@ -30,6 +30,8 @@ Route::get('/pastes/{not_listed_id}', [PasteController::class, 'show'])->name('p
 Route::get('/pastes/{not_listed_id}/edit', [PasteController::class, 'edit'])->name('pastes.edit');
 Route::put('/pastes/{not_listed_id}', [PasteController::class, 'update'])->name('pastes.update');
 
+Route::get('/pastes/{not_listed_id}/password', [PasteController::class, 'password'])->name('pastes.password');
+Route::put('/pastes/{not_listed_id}/password', [PasteController::class, 'password_check'])->name('pastes.password-check');
 
 Route::delete('/pastes/{not_listed_id}', [PasteController::class, 'destroy'])->name('pastes.destroy');
 

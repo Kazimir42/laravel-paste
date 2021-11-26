@@ -41,6 +41,12 @@
                                 type="submit" value="Delete">Delete
                         </button>
                     </form>
+                    @elseif($paste->password)
+                        <a href="{{ route('pastes.password', $paste->not_listed_id) }}">
+                            <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200">
+                                Enter password
+                            </button>
+                        </a>
                     @endif
                     <a href="{{ route('pastes.index') }}">
                         <button class="bg-primary hover:bg-dark-primary text-white font-bold py-2 px-4 rounded duration-200">
